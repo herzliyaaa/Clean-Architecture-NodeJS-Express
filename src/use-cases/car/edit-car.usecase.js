@@ -1,21 +1,14 @@
 const editCar = ({ carDB, carEntity }) => {
     return async function putCar({id, ...carInfo}) {
       const result = carEntity(carInfo);
-      // const carExists = await carDB.findBySerial(result.serial_number, id);
+      const carExists = await carDB.findBySerial(result.serial_number, id);
   
-    
-      //TODO: change rowCount into something that does not count all the data (Breakdown and Compare only the Serial Number of the existing car )
-
-      // if (carExists.rowCount !== 0) {
-      //   const result = {
-      //     msg: "Serial Number already exists"
-      //   };
-      //   return result;
-      // }
-
-      // if (carExists.rows[0].serial_number === result.serial_number) {
-      //  return ({msg: "Serial Number already exists"});
-      // }
+      if (carExists.rowCount !== 0) {
+        const result = {
+          msg: "Serial Number already exists"
+        };
+        return result;
+      }
   
       return carDB.editCar({
         id: id,

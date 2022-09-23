@@ -4,15 +4,15 @@ const path = require("path")
 
 // Multer File upload settings
 const storage = multer.diskStorage({
-  destination: (cb) => {
-    const DIR = "./uploads"
+  destination: (req, file, cb) => {
+    const DIR = "src/uploads"
     if (!fs.existsSync(DIR)) {
       fs.mkdirSync(DIR)
     }
     cb(null, DIR)
   },
 
-  filename: (file, cb) => {
+  filename: (req, file, cb) => {
     const fileName = `${file.fieldname}-${Date.now()}${path.extname(
       file.originalname
     )}`

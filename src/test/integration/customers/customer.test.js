@@ -1,11 +1,10 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const app = require('../../../server')
+const app = require("../../../server");
 chai.should();
 chai.use(chaiHttp);
 
 describe("Customers API", () => {
-
   let token;
 
   beforeAll(async () => {
@@ -16,15 +15,11 @@ describe("Customers API", () => {
     token = response.body.token;
   });
 
-
   describe("Customer Test", () => {
-
-    it("It should not return users as it has no or invalid access token", async () => {
-      const response = await chai
-        .request(app)
-        .get("/api/customer")
+    it("It should not return users as it has no or it has invalid access token", async () => {
+      const response = await chai.request(app).get("/api/customer");
       expect(response.statusCode).toEqual(401);
-      expect(response.body.message).toBe("You need to login first.")
+      expect(response.body.message).toBe("You need to login first.");
     });
 
     it("It should return all the customers", async () => {
@@ -32,24 +27,19 @@ describe("Customers API", () => {
         .request(app)
         .get("/api/customer")
         .set("Authorization", token);
-
       expect(response.statusCode).toEqual(200);
     });
 
     it("It should not add a customer as it has no access token", async () => {
-      const response = await chai
-        .request(app)
-        .post("/api/customer/add")
-        .send({
-          firstname: "Jaemin",
-          lastname: "Na",
-          contact: "+639268186409",
-          address: "Javier Subd"
-        });
+      const response = await chai.request(app).post("/api/customer/add").send({
+        firstname: "Jaemin",
+        lastname: "Na",
+        contact: "+639268186409",
+        address: "Javier Subd"
+      });
       expect(response.statusCode).toEqual(401);
-      expect(response.body.message).toBe("You need to login first.")
+      expect(response.body.message).toBe("You need to login first.");
     });
-
 
     it("It should add a customer", async () => {
       const response = await chai
@@ -66,11 +56,9 @@ describe("Customers API", () => {
     });
 
     it("It should not return customer's details by id as it has no access token", async () => {
-      const response = await chai
-        .request(app)
-        .get("/api/customer/view/2")
+      const response = await chai.request(app).get("/api/customer/view/2");
       expect(response.statusCode).toEqual(401);
-      expect(response.body.message).toBe("You need to login first.")
+      expect(response.body.message).toBe("You need to login first.");
     });
 
     it("It should return customer's details by id", async () => {
@@ -92,7 +80,7 @@ describe("Customers API", () => {
           address: "Javier Subd"
         });
       expect(response.statusCode).toEqual(401);
-      expect(response.body.message).toBe("You need to login first.")
+      expect(response.body.message).toBe("You need to login first.");
     });
 
     it("It should update a customer", async () => {
@@ -110,11 +98,9 @@ describe("Customers API", () => {
     });
 
     it("It should not deactivate the customer as it has no access token", async () => {
-      const response = await chai
-        .request(app)
-        .patch("/api/customer/delete/26")
+      const response = await chai.request(app).patch("/api/customer/delete/26");
       expect(response.statusCode).toEqual(401);
-      expect(response.body.message).toBe("You need to login first.")
+      expect(response.body.message).toBe("You need to login first.");
     });
 
     it("It should deactivate the customer", async () => {
@@ -125,5 +111,27 @@ describe("Customers API", () => {
       expect(response.statusCode).toEqual(200);
       expect(response.body.message).toBe("Customer Deleted Successfully");
     });
+
+
   });
 });
+
+// test (another approach)
+
+// it("should throw blablah", async () => {
+//   const info = {
+//       data1 : id,
+//       data2 : null
+//   }
+
+//   await entityName(info)
+//   .then(res => {
+//       console.log(res)
+//       expect(res).to.not.be.true
+//   })
+//   .catch((err) => {
+//       expect(err).to.not.be.undefined
+//       expect(err).to.have.property("message")
+//       expect(err.message).to.eql("data2 is required.")
+//   })
+// })

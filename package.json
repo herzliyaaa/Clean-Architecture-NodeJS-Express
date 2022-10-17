@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "jest src/test/ --detectOpenHandles --forceExit",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test:unit": "jest src/test/unit --detectOpenHandles --forceExit",
+    "test:integration": "jest src/test/integration --detectOpenHandles --forceExit",
     "lint": "eslint --fix .eslintrc \"**/*.js\""
   },
   "keywords": [],

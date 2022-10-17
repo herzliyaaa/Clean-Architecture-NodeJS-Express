@@ -5,15 +5,21 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "prod" ]
+    branches: [ "qa/test" ]
   pull_request:
-    branches: [ "prod" ]
+    branches: [ "qa/test" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      PORT: 5000
+      NODE_ENV: development
+      PG_USER: postgres
+      PG_HOST: localhost
+      PG_DATABASE: test_null
+      PG_USERPASS: admin 
+      SECRET_KEY: naevis   
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
@@ -28,4 +34,5 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - run: npm test:unit
+    - run: npm test:integration

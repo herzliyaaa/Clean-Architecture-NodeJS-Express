@@ -29,7 +29,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: root
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
           POSTGRES_DB: clean_api
         ports:
@@ -48,4 +48,3 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run test:unit
-    - run: npm start & npm run test:integration

@@ -1,43 +1,19 @@
 //TODO:
 
-[/] dashboard.query
-[/] service ticket module
+app.use('/rct-api/docs', (req, res, next) => {
+  const currentHost = `${req.protocol}://${req.hostname}:${port}`;
 
-//TODO (09/06/2022):
-[/] upsert query in cars module
-[/] add if conditions for validation:
-    email address should have @ symbol, 
-    password must have 8 characters,
-    names should not contain any numbers or special character,
-    incorrect credentials
-[/] generate invoice number (incremented)
+  const swaggerJson = require('../swagger-docs.json');
+  swaggerJson.servers = [
+    {
+      url: `${currentHost}/rct-api`,
+      description: "Feature Deployment",
+    },
+  ];
 
+  req.swaggerDoc = swaggerJson;
+  next();
+}, swaggerUi.serve, (req, res) => {
 
-[/] add mechanic module
-[/] service ticket must be generated
-[/] Fix the login once the password is incorrect (tentative)
-[/] test all endpoints using postman
-[/] Join Query in Invoice (Fetch the data according to the foreign key)
-[/] Add mechanic ID
-[/] Fix incremented numbers in ticket and invoice
-
-
-[?] Fix Serial Number Bug
-[/] Try image upload in car module
-[/] Add Service Module
-[/] Add service in service ticket module
-[/] Fix User Edit Endpoint
-[/] Fix Change Password Endpoint
-[/] Add Condition if the user account is already inactive in User Login 
-[] Add new column brand_new 
-[ ] api integration testing using mocha, chai
-    * With Invalid Token
-    * With Token But Incomplete Data
-    * With Invalid Token and Incomplete Data
-
-Bugs:
-[/] (FIXED) TypeError: controller is not a function in Change Password Endpoints
-
-
-[] edit / delete ticket
-[] password in edit user
+  swaggerUi.setup(req.swaggerDoc)(req, res);
+});

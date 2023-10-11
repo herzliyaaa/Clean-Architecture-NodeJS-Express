@@ -6,6 +6,7 @@ const config = {
   user: process.env.PG_USER,
   database: process.env.PG_DATABASE,
   password: process.env.PG_USERPASS,
+  port: process.env.PG_PORT,
   host: process.env.PG_HOST,
   max: 20,
   idleTimeoutMillis: 30000,

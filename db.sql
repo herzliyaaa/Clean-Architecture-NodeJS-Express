@@ -86,7 +86,8 @@ CREATE TABLE IF NOT EXISTS "users"(
     "password" VARCHAR(100),
     "firstname" VARCHAR(100),
     "lastname" VARCHAR(100),
-    "created_at" TIME WITH TIME ZONE
+    "created_at" TIME WITH TIME ZONE,
+    "updated_at" TIME WITH TIME ZONE
     );
 
 
@@ -157,7 +158,8 @@ ALTER TABLE customers
 ALTER TABLE sales_invoice
   ADD total_amount NUMERIC;
 
-
+ALTER TABLE users
+  ADD updated_at TIME WITH TIME ZONE;
 --* Join Tables
 
 

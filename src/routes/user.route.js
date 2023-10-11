@@ -12,7 +12,7 @@ const {
 const authMiddleware = require("../middleware/index");
 const makeExpressCallback = require("../express-callback/index");
 
-router.post("/register",authMiddleware, makeExpressCallback(postUserController));
+router.post("/register", makeExpressCallback(postUserController));
 router.post("/login", makeExpressCallback(loginUserController));
 router.get("/user-details/:id", authMiddleware, makeExpressCallback(getUserByIdController));
 router.patch("/user/pass/:id", authMiddleware, makeExpressCallback(changeUserPasswordController));

@@ -40,8 +40,13 @@ app.use(
 );
 //logs for console
 app.use(logger("dev"));
-app.use(helmet({ crossOriginResourcePolicy: false }));
+// app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use("/api/uploads", express.static(path.join(__dirname, "../uploads")));
+
+app.get("/api", (req, res) => {
+  res.send("CAR DEALERSHIP API");
+});
+
 
 app.use("/api", carRoutes);
 app.use("/api", customerRoutes);
